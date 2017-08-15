@@ -2,12 +2,13 @@ package com.DarkKeks.drm.tasks;
 
 import com.DarkKeks.drm.Log;
 import com.DarkKeks.drm.Message;
+import com.DarkKeks.drm.MessageId;
 
 import java.io.IOException;
 
 public class ShutdownTask extends Task {
 
-    public ShutdownTask(int id, Message msg) {
+    public ShutdownTask(MessageId id, Message msg) {
         super(id, msg);
     }
 

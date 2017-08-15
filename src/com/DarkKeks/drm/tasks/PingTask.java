@@ -1,10 +1,11 @@
 package com.DarkKeks.drm.tasks;
 
 import com.DarkKeks.drm.Message;
+import com.DarkKeks.drm.MessageId;
 
 public class PingTask extends Task {
 
-    public PingTask(int id, Message msg) {
+    public PingTask(MessageId id, Message msg) {
         super(id, msg);
     }
 

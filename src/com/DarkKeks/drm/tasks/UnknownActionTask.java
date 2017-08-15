@@ -1,11 +1,11 @@
 package com.DarkKeks.drm.tasks;
 
-
 import com.DarkKeks.drm.Message;
+import com.DarkKeks.drm.MessageId;
 
 public class UnknownActionTask extends Task {
 
-    public UnknownActionTask(int id, Message msg) {
+    public UnknownActionTask(MessageId id, Message msg) {
         super(id, msg);
     }
 

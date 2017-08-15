@@ -2,11 +2,12 @@ package com.DarkKeks.drm.tasks;
 
 import com.DarkKeks.drm.Config;
 import com.DarkKeks.drm.Message;
+import com.DarkKeks.drm.MessageId;
 import com.DarkKeks.drm.Parameter;
 
 public class ChangeSecretKeyTask extends Task {
 
-    public ChangeSecretKeyTask(int id, Message msg) {
+    public ChangeSecretKeyTask(MessageId id, Message msg) {
         super(id, msg);
     }
 

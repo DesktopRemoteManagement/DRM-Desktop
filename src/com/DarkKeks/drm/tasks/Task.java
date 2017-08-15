@@ -2,6 +2,7 @@ package com.DarkKeks.drm.tasks;
 
 import com.DarkKeks.drm.Controller;
 import com.DarkKeks.drm.Message;
+import com.DarkKeks.drm.MessageId;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -11,9 +12,9 @@ public abstract class Task extends Thread {
     private Queue<Message> messageQueue;
 
     protected Message msg;
-    private int id;
+    private MessageId id;
 
-    public Task(int id, Message msg) {
+    public Task(MessageId id, Message msg) {
         this.id = id;
         this.msg = msg;
 

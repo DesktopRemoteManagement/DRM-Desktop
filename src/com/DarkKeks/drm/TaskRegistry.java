@@ -18,7 +18,7 @@ public class TaskRegistry {
         add("message", ReceiveMessageTask::new);
     }
 
-    public Task getInstance(int id, Message msg) {
+    public Task getInstance(MessageId id, Message msg) {
         if(tasks.containsKey(msg.getAction())) {
             return tasks.get(msg.getAction()).newInstance(id, msg);
         } else {
@@ -31,6 +31,6 @@ public class TaskRegistry {
     }
 
     private interface TaskFactory {
-        Task newInstance(int id, Message msg);
+        Task newInstance(MessageId id, Message msg);
     }
 }

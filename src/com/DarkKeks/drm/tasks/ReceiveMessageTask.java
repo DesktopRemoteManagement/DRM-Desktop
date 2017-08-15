@@ -2,11 +2,12 @@ package com.DarkKeks.drm.tasks;
 
 import com.DarkKeks.drm.GUI;
 import com.DarkKeks.drm.Message;
+import com.DarkKeks.drm.MessageId;
 import com.DarkKeks.drm.Parameter;
 
 public class ReceiveMessageTask extends Task {
 
-    public ReceiveMessageTask(int id, Message msg) {
+    public ReceiveMessageTask(MessageId id, Message msg) {
         super(id, msg);
     }
 

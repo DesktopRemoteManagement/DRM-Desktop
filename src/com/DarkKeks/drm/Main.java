@@ -1,16 +1,18 @@
 package com.DarkKeks.drm;
 
-import com.DarkKeks.drm.tasks.ReceiveMessageTask;
-
 public class Main {
 
     public static Controller controller;
 
     public static void main(String[] args) throws InterruptedException {
+        MessageId id = new MessageId("127.0.0.1:12345:0");
+        for(int i = 0; i < 1000; ++i) {
+            System.out.println(id);
+            id.increment();
+        }
+        System.out.println(id);
 
-        new ReceiveMessageTask(1, Message.getBuilder().addParam("from", "string", "kek").addParam("message", "string", "kok").build()).start();
 
-        Thread.sleep(10000);
 
         //Config.init();
         //Config.loadDefaults();

@@ -12,7 +12,7 @@ public class Message {
     private static JsonParser parser = new JsonParser();
 
     private String action;
-    private int id;
+    private MessageId id;
     private String destination;
     private HashMap<String, Parameter> params;
 
@@ -37,11 +37,11 @@ public class Message {
         this.action = action;
     }
 
-    public int getId() {
+    public MessageId getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(MessageId id) {
         this.id = id;
     }
 
@@ -70,9 +70,8 @@ public class Message {
             if(obj.has("destination")) {
                 this.destination = obj.get("destination").getAsString();
             }
-            if(obj.has("id")) {
-                this.id = obj.get("id").getAsInt();
-            }
+
+            this.id = new MessageId(obj.get("id").getAsString());
 
             obj = obj.getAsJsonObject("message");
             this.action = obj.get("action").getAsString();
@@ -119,7 +118,7 @@ public class Message {
         private Builder() {
         }
 
-        public Builder setId(int id) {
+        public Builder setId(MessageId id) {
             Message.this.setId(id);
             return this;
         }

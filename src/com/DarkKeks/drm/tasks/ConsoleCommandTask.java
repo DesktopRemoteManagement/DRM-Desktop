@@ -2,13 +2,14 @@ package com.DarkKeks.drm.tasks;
 
 import com.DarkKeks.drm.Log;
 import com.DarkKeks.drm.Message;
+import com.DarkKeks.drm.MessageId;
 import com.DarkKeks.drm.Parameter;
 
 import java.io.*;
 
 public class ConsoleCommandTask extends Task {
 
-    public ConsoleCommandTask(int id, Message msg) {
+    public ConsoleCommandTask(MessageId id, Message msg) {
         super(id, msg);
     }
 

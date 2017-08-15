@@ -10,19 +10,19 @@ public class Controller {
 
     private static Controller instance = new Controller();
 
-    private Map<Integer, Task> runningTasks;
+    private Map<MessageId, Task> runningTasks;
 
     private TaskRegistry registry;
 
     private SocketSender sender;
 
-    private int currentId;
+    private MessageId currentId;
 
     public Controller() {
         registry = new TaskRegistry();
         runningTasks = new ConcurrentHashMap<>();
 
-        currentId = 0;
+        currentId = new MessageId("0");
 
         sender = new SocketSender();
         sender.start();
@@ -32,12 +32,10 @@ public class Controller {
         try {
             Message message = new Message(Security.getDecryptedMessage(msg));
 
-            if(!runningTasks.containsKey(message.getId())) {
-                Task task = registry.getInstance(currentId, message);
-                runningTasks.put(currentId, task);
+            if(!message.getId().isShort()) {
+                Task task = registry.getInstance(message.getId(), message);
+                runningTasks.put(message.getId(), task);
                 task.start();
-
-                currentId++;
             } else {
                 receiveResponse(message);
             }
@@ -49,7 +47,7 @@ public class Controller {
         }
     }
 
-    public void respondToMessage(int id, Message response) {
+    public void respondToMessage(MessageId id, Message response) {
         if(runningTasks.containsKey(id)) {
             try {
                 sender.requestSend(Security.getEncryptedMessage(response));
@@ -64,10 +62,11 @@ public class Controller {
 
     public void newRequest(Task task, Message request) {
         try {
+            request.setId(currentId);
             runningTasks.put(currentId, task);
             sender.requestSend(Security.getEncryptedMessage(request));
 
-            currentId++;
+            currentId.increment();
         } catch (GeneralSecurityException e) {
             throw new IllegalStateException("Can't encrypt message");
         }
@@ -81,7 +80,7 @@ public class Controller {
 
             runningTasks.remove(response.getId());
         } else {
-            throw new IllegalStateException("Response to a non-existent closed request");
+            throw new IllegalStateException("Response to a non-existent or closed request");
         }
     }
 

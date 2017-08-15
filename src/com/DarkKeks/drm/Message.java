@@ -65,10 +65,13 @@ public class Message {
         return params;
     }
 
-    public void fromJson(JsonObject obj){
+    private void fromJson(JsonObject obj){
         try {
             if(obj.has("destination")) {
                 this.destination = obj.get("destination").getAsString();
+            }
+            if(obj.has("id")) {
+                this.id = obj.get("id").getAsInt();
             }
 
             obj = obj.getAsJsonObject("message");

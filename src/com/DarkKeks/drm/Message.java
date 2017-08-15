@@ -101,6 +101,8 @@ public class Message {
             obj.addProperty("destination", this.destination);
         }
 
+        obj.addProperty("id", this.id.toString());
+
         return obj;
     }
 

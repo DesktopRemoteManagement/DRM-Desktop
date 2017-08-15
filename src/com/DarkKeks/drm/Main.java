@@ -1,22 +1,34 @@
 package com.DarkKeks.drm;
 
-public class Main {
+import com.DarkKeks.drm.tasks.Task;
 
-    public static Controller controller;
+public class Main extends Task {
 
     public static void main(String[] args) throws InterruptedException {
-        MessageId id = new MessageId("127.0.0.1:12345:0");
-        for(int i = 0; i < 1000; ++i) {
-            System.out.println(id);
-            id.increment();
-        }
-        System.out.println(id);
+        Config.init();
+        Config.SERVER_ADDRESS = "localhost";
 
+        Controller.getInstance().run();
 
+        Main task = new Main(new MessageId("0"), new Message());
+        task.run();
+    }
 
-        //Config.init();
-        //Config.loadDefaults();
+    public Main(MessageId id, Message msg) {
+        super(id, msg);
+    }
 
-        //controller = new Controller();
+    @Override
+    protected Message respond(Message message) {
+        Message response = sendMessage(Message.getBuilder()
+                .setAction("message")
+                .addParam("from", "string", "decic")
+                .addParam("message", "string", "kekek")
+                .setDestination("127.0.0.1:" + Controller.getInstance().sender.socket.getLocalPort())
+                .build());
+
+        System.out.println(response);
+
+        return new Message();
     }
 }

@@ -26,7 +26,7 @@ public class TaskRegistry {
         }
     }
 
-    private void add(String action, TaskFactory factory) {
+    public void add(String action, TaskFactory factory) {
         tasks.put(action, factory);
     }
 

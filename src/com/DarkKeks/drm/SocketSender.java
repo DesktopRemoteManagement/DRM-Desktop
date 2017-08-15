@@ -38,6 +38,8 @@ public class SocketSender extends Thread{
     private void tryConnect() throws IOException {
         Socket socket = new Socket(Config.SERVER_ADDRESS, Config.PORT);
 
+        Log.info("SocketSender connected.");
+
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
 
@@ -50,7 +52,7 @@ public class SocketSender extends Thread{
             if(in.available() > 0) {
                 byte[] msg = readMessage();
                 if(msg.length > 0){
-                    Controller.getInstance().processMessage(readMessage());
+                    Controller.getInstance().processMessage(msg);
                 }
             }
         }

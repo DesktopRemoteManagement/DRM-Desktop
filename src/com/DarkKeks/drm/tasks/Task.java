@@ -28,8 +28,8 @@ public abstract class Task extends Thread {
         Controller.getInstance().respondToMessage(id, response);
     }
 
-    protected Message sendMessage(Message request) {
-        Controller.getInstance().newRequest(this, request);
+    protected synchronized Message sendMessage(Message request) {
+        Controller.getInstance().newTaskRequest(this, request);
         try {
             while(messageQueue.isEmpty()) {
                 wait();

@@ -27,7 +27,7 @@ public class MessageId {
             isShort = false;
             int lastSemicolon = id.lastIndexOf(':');
             addressPart = id.substring(0, lastSemicolon);
-            id = id.substring(lastSemicolon);
+            id = id.substring(lastSemicolon + 1);
         } else {
             isShort = true;
         }

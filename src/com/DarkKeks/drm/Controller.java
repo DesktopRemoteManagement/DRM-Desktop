@@ -18,7 +18,7 @@ public class Controller {
 
     private MessageId currentId;
 
-    public Controller() {
+    public void run() {
         registry = new TaskRegistry();
         runningTasks = new ConcurrentHashMap<>();
 
@@ -32,6 +32,9 @@ public class Controller {
         try {
             Message message = new Message(Security.getDecryptedMessage(msg));
 
+            Log.info("Received message from server");
+            Log.info(message.toString());
+
             if(!message.getId().isShort()) {
                 Task task = registry.getInstance(message.getId(), message);
                 runningTasks.put(message.getId(), task);
@@ -42,7 +45,6 @@ public class Controller {
         } catch (GeneralSecurityException e) {
             Log.info("Can't decrypt message");
         } catch (RuntimeException e) {
-            Log.error("Can't parse message");
             Log.logException(e);
         }
     }
@@ -51,6 +53,7 @@ public class Controller {
         if(runningTasks.containsKey(id)) {
             try {
                 sender.requestSend(Security.getEncryptedMessage(response));
+                Log.info("Responded to message.");
             } catch (GeneralSecurityException e) {
                 throw new IllegalStateException("Can't encrypt message");
             }
@@ -60,8 +63,10 @@ public class Controller {
         }
     }
 
-    public void newRequest(Task task, Message request) {
+    public void newTaskRequest(Task task, Message request) {
         try {
+            Log.info("Created new request.");
+
             request.setId(currentId);
             runningTasks.put(currentId, task);
             sender.requestSend(Security.getEncryptedMessage(request));
@@ -74,6 +79,8 @@ public class Controller {
 
     public void receiveResponse(Message response) {
         if(runningTasks.containsKey(response.getId())) {
+            Log.info("Received response.");
+
             Task task = runningTasks.get(response.getId());
             task.addResponse(response);
             task.notify();

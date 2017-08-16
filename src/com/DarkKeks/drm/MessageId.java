@@ -66,7 +66,7 @@ public class MessageId {
         for(Character c : value) {
             builder.insert(0, c);
         }
-        if(isShort) {
+        if(!isShort) {
             builder.insert(0, ':');
             builder.insert(0, addressPart);
         }

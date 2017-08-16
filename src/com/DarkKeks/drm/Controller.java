@@ -28,6 +28,10 @@ public class Controller {
         sender.start();
     }
 
+    public SocketSender getSender() {
+        return sender;
+    }
+
     public void processMessage(byte[] msg) {
         try {
             Message message = new Message(Security.getDecryptedMessage(msg));

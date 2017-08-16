@@ -24,7 +24,7 @@ public class Main extends Task {
                 .setAction("message")
                 .addParam("from", "string", "decic")
                 .addParam("message", "string", "kekek")
-                .setDestination("127.0.0.1:" + Controller.getInstance().sender.socket.getLocalPort())
+                .setDestination("127.0.0.1:" + Controller.getInstance().getSender().getPublicAddress())
                 .build());
 
         System.out.println(response);

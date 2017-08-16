@@ -14,6 +14,8 @@ public class SocketSender extends Thread{
 
     private final Queue<byte[]> messageQueue;
 
+    private Socket socket;
+
     public SocketSender() {
         messageQueue = new LinkedBlockingQueue<>();
     }
@@ -57,6 +59,13 @@ public class SocketSender extends Thread{
             }
         }
     }
+
+    public String getPublicAddress() {
+        return socket == null ? null : String.format("%s:%s",
+                socket.getLocalAddress().getHostAddress(),
+                socket.getLocalPort());
+    }
+
 
     public void requestSend(byte[] message) {
         synchronized (messageQueue) {
